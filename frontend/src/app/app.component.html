@@ -1,0 +1,103 @@
+<div class="container">
+  <br><br>
+  <form class="row row-cols-lg-auto g-3 align-items-center" #dataForm="ngForm">
+
+    <div class="col-xl-2">
+      <select class="form-select" ngModel [(ngModel)]="country" name="country" (change)="onFormUpdate()">
+        <option selected value="us">Choose region</option>
+        <option value="de">Germany</option>
+        <option value="es">Spain</option>
+        <option value="us">United states</option>
+      </select>
+    </div>
+
+    <div class="col-xl-1">
+      <label class="form-check-label align-content-xl-end">Errors:</label>
+    </div>
+
+    <div class="col-xl-2">
+      <input type="range"
+             class="form-range"
+             min="0" max="10" step="0.25"
+             value="0"
+             [(ngModel)]="errorCount"
+             name="errorsRangeField"
+             (change)="onFormUpdate()">
+    </div>
+
+    <div class="col-xl-1 form-outline">
+      <input type="number"
+             class="form-control"
+             value="0"
+             [(ngModel)]="errorCount"
+             name="errorsInputField"
+             (change)="errorCount > 1000 ? errorCount = 1000 : errorCount;
+                       errorCount < 0 ? errorCount = 0 : errorCount;
+                       onFormUpdate()"/>
+    </div>
+
+
+    <div class="col-xl-1 justify-content-end">
+      <label class="form-check-label">Seed:</label>
+    </div>
+
+    <div class="col-xl-1 form-outline">
+      <input type="number"
+             class="form-control align-self-end"
+             value="0"
+             ngModel
+             name="seed"
+             [(ngModel)]="seed"
+             (change)="onFormUpdate()"/>
+    </div>
+
+    <div class="col-xl-2 align-content-end">
+      <button type="submit"
+              class="btn btn-primary" (click)="onClickGenerateSeed()" >Generate seed</button>
+    </div>
+
+    <div class="col-xl-2 align-content-end">
+      <button type="submit"
+              class="btn btn-primary" (click)="onClickGenerateData()" >Generate data</button>
+    </div>
+
+  </form>
+  <br><br>
+
+
+  <div class="row">
+
+    <div class="search-results"
+         infinite-scroll
+         [scrollWindow]="true"
+         (scrolled)="onScrollDown()">
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">#</th>
+          <th scope="col">Full name</th>
+          <th scope="col">Identification N</th>
+          <th scope="col">Address</th>
+          <th scope="col">Phone #</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let record of recordsList">
+          <th scope="row"></th>
+          <td>{{record[0]}}</td>
+          <td>{{record[1]}}</td>
+          <td>{{record[2]}}</td>
+          <td>{{record[3]}}</td>
+          <td>{{record[4]}}</td>
+        </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</div>
